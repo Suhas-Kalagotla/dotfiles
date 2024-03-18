@@ -47,4 +47,7 @@ return require('packer').startup(function(use)
       require("toggleterm").setup()
   end}
   use('bling/vim-bufferline', {run = ':TSUpdate'})
+  use("christoomey/vim-tmux-navigator")
+  use("nvim-web-devicons")
+
 end)

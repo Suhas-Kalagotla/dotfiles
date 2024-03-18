@@ -1,0 +1,6 @@
+clear mod1 
+clear mod3 
+
+
+add mod3 = Alt_R 
+add mod1 = Alt_L
