@@ -84,7 +84,7 @@ alias l='ls -CF'
 alias vim='nvim'
 alias battery='upower -i /org/freedesktop/UPower/devices/battery_BAT0'
 alias tmux='tmux -u'
-
+alias pmoff='xrandr --output eDP-1 --off'
 alias keys="xev | awk -F'[ )]+' '/^KeyPress/ { a[NR+2] } NR in a { printf \"%-3s %s\\n\", \$5, \$8 }'"
 # Add an "alert" alias for long running commands.  Use like so: sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
