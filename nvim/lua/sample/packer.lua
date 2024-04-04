@@ -21,17 +21,16 @@ return require('packer').startup(function(use)
   })
 
   use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
-  use('nvim-treesitter/playground')
   use('ThePrimeagen/harpoon')
+  use('nvim-treesitter/playground')
   use('mbbill/undotree')
   use('tpope/vim-fugitive')
   use {
 	  'VonHeikemen/lsp-zero.nvim',
 	  branch = 'v3.x',
 	  requires = {
-		  --- Uncomment these if you want to manage LSP servers from neovim
-		  -- {'williamboman/mason.nvim'},
-		  -- {'williamboman/mason-lspconfig.nvim'},
+		  -- Uncomment these if you want to manage LSP servers from neovim
+		  {'williamboman/mason-lspconfig.nvim'},
 
 		  -- LSP Support
 		  {'neovim/nvim-lspconfig'},
@@ -46,6 +45,13 @@ return require('packer').startup(function(use)
   use {"akinsho/toggleterm.nvim", tag = '*', config = function()
       require("toggleterm").setup()
   end}
+  use {
+    "williamboman/mason.nvim",
+    "mfussenegger/nvim-lint",
+    "rshkarin/mason-nvim-lint",
+}
+  use'mhartington/formatter.nvim'
+  use('stevearc/conform.nvim')
   use('bling/vim-bufferline', {run = ':TSUpdate'})
   use('christoomey/vim-tmux-navigator')
   use 'nvim-tree/nvim-web-devicons'
