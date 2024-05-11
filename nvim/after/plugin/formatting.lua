@@ -1,28 +1,30 @@
 require("mason").setup()
 
 require("mason-nvim-lint").setup({
-	ensure_installed = { "ast-grep", "revive" },
+	ensure_installed = { "eslint_d", "prettierd", "prettier", "stylua" },
 })
 
 require("lint").linters_by_ft = {
-	markdown = { "ast-grep" },
 	lua = { "selene" },
-	html = { "ast-grep" },
-	typescript = { "oxlint" },
-	javascript = { "oxlint" },
-	css = { "ast-grep" },
-	javascriptreact = { "oxlint" },
-	typescriptreact = { "oxlint" },
+	typescript = { "eslint_d" },
+	javascript = { "eslint_d" },
+	javascriptreact = { "eslint_d" },
+	typescriptreact = { "eslint_d" },
+	markdown = { "cbfmt" },
+	--	java = { "checkstyle" },
 }
 
 require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
-		python = { "isort", "black" },
+		python = { "isort" },
 		javascript = { { "prettierd", "prettier" } },
-		typescript = { { "prettierd", "prettier" } },
+		typescript = { "prettierd", "prettier" },
 		typescriptreact = { { "prettierd", "prettier" } },
 		javascriptreact = { { "prettierd", "prettier" } },
+		java = { "google-java-format" },
+		css = { "prettier" },
+		markdown = { "cbfmt" },
 	},
 })
 

@@ -269,6 +269,11 @@ bindsym Print exec maim -s -u /home/suhas/Pictures/`date +%Y-%m_%H:%M`.png && xc
 #toggle between monitors 
 bindsym $mod+Tab focus output left
 
+#startup apps
+exec --no-startup-id i3-msg 'workspace 1:  ; exec google-chrome'; 
+exec --no-startup-id i3-msg 'workspace 1:  ; exec firefox'; 
+exec --no-startup-id i3-msg 'workspace 2:  ; exec gnome-terminal'; 
+
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play
 bindsym XF86AudioPause exec playerctl pause
@@ -278,6 +283,8 @@ bindsym XF86AudioPrev exec playerctl previous
 
 exec xinput set-prop "ELAN0712:00 04F3:30FD Touchpad" "libinput Tapping Enabled" 1
 exec_always picom
-exec_always feh --bg-scale /home/suhas/Pictures/Wallpapers/eren.jpg
+exec_always feh --bg-scale /home/suhas/Pictures/Wallpapers/l.jpg
 
 exec xmodmap ~/.Xmodmap
+
+

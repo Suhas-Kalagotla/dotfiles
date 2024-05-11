@@ -14,13 +14,23 @@ return require("packer").startup(function(use)
 	})
 
 	use({
+		"kylechui/nvim-surround",
+		tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+		config = function()
+			require("nvim-surround").setup({
+				-- Configuration here, or leave empty to use defaults
+			})
+		end,
+	})
+
+	use({
 		"catppuccin/nvim",
 		as = "catppuccin",
 		config = function()
 			vim.cmd("colorscheme catppuccin")
 		end,
 	})
-
+use("kien/ctrlp.vim"); 
 	use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
 	use("ThePrimeagen/harpoon")
 	use("nvim-treesitter/playground")
@@ -30,16 +40,24 @@ return require("packer").startup(function(use)
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v3.x",
 		requires = {
-			-- Uncomment these if you want to manage LSP servers from neovim
+			{ "williamboman/mason.nvim" },
 			{ "williamboman/mason-lspconfig.nvim" },
 
-			-- LSP Support
 			{ "neovim/nvim-lspconfig" },
-			-- Autocompletion
 			{ "hrsh7th/nvim-cmp" },
 			{ "hrsh7th/cmp-nvim-lsp" },
 			{ "L3MON4D3/LuaSnip" },
 		},
+		config = function()
+			require("lsp-zero").extend_lspconfig()
+		end,
+	})
+	use({
+		"L3MON4D3/LuaSnip",
+		-- follow latest release.
+		tag = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+		-- install jsregexp (optional!:).
+		run = "make install_jsregexp",
 	})
 	use("vim-airline/vim-airline", { run = ":TSUpdate" })
 	use("vim-airline/vim-airline-themes", { run = ":TSUpdate" })
@@ -55,6 +73,7 @@ return require("packer").startup(function(use)
 		"mfussenegger/nvim-lint",
 		"rshkarin/mason-nvim-lint",
 	})
+	use("stevearc/dressing.nvim")
 	use("mhartington/formatter.nvim")
 	use("stevearc/conform.nvim")
 	use("bling/vim-bufferline", { run = ":TSUpdate" })
