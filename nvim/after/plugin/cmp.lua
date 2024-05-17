@@ -1,6 +1,12 @@
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 
+local icons = {
+	nvim_lsp = "󰞵 ",
+	nvim_lua = " ",
+	buffer = " ",
+	path = "󰝰 ",
+}
 cmp.setup({
 	completion = {
 		completeopt = "menu,menuone,preview,noselect",
@@ -33,6 +39,7 @@ cmp.setup({
 		["<C-e>"] = cmp.mapping.abort(),
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
 	}),
+
 	source = cmp.config.sources({
 		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
@@ -41,4 +48,9 @@ cmp.setup({
 	}, {
 		{ name = "buffer" },
 	}),
+
+	format = function(_, vim_item)
+		vim_item.kind = icons[vim_item.kind]
+		return vim_item
+	end,
 })

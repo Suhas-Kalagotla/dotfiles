@@ -30,7 +30,7 @@ return require("packer").startup(function(use)
 			vim.cmd("colorscheme catppuccin")
 		end,
 	})
-use("kien/ctrlp.vim"); 
+	use("kien/ctrlp.vim")
 	use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
 	use("ThePrimeagen/harpoon")
 	use("nvim-treesitter/playground")
@@ -79,4 +79,12 @@ use("kien/ctrlp.vim");
 	use("bling/vim-bufferline", { run = ":TSUpdate" })
 	use("christoomey/vim-tmux-navigator")
 	use("nvim-tree/nvim-web-devicons")
+	use({ "saadparwaiz1/cmp_luasnip" })
+	use({
+		"L3MON4D3/LuaSnip",
+		after = "nvim-cmp",
+		config = function()
+			require("config.snippets")
+		end,
+	})
 end)
