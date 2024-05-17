@@ -8,5 +8,5 @@ set laststatus=3
 let g:airline_section_c = '%t'
 set noshowmode
 let b:airline_disable_statusline = 1
-let g:airline#extensions#bufferline#enabled = 1
+"let g:airline#extensions#bufferline#enabled = 1
 
