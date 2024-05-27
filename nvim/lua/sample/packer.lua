@@ -36,22 +36,22 @@ return require("packer").startup(function(use)
 	use("nvim-treesitter/playground")
 	use("mbbill/undotree")
 	use("tpope/vim-fugitive")
-	use({
-		"VonHeikemen/lsp-zero.nvim",
-		branch = "v3.x",
-		requires = {
-			{ "williamboman/mason.nvim" },
-			{ "williamboman/mason-lspconfig.nvim" },
-
-			{ "neovim/nvim-lspconfig" },
-			{ "hrsh7th/nvim-cmp" },
-			{ "hrsh7th/cmp-nvim-lsp" },
-			{ "L3MON4D3/LuaSnip" },
-		},
-		config = function()
-			require("lsp-zero").extend_lspconfig()
-		end,
-	})
+		use({
+			"VonHeikemen/lsp-zero.nvim",
+			branch = "v3.x",
+			requires = {
+				{ "williamboman/mason.nvim" },
+				{ "williamboman/mason-lspconfig.nvim" },
+	
+				{ "neovim/nvim-lspconfig" },
+				{ "hrsh7th/nvim-cmp" },
+				{ "hrsh7th/cmp-nvim-lsp" },
+				{ "L3MON4D3/LuaSnip" },
+			},
+			config = function()
+				require("lsp-zero").extend_lspconfig()
+			end,
+		})
 	use({
 		"L3MON4D3/LuaSnip",
 		-- follow latest release.
@@ -76,6 +76,7 @@ return require("packer").startup(function(use)
 	use("stevearc/dressing.nvim")
 	use("mhartington/formatter.nvim")
 	use("stevearc/conform.nvim")
+
 	use("bling/vim-bufferline", { run = ":TSUpdate" })
 	use("christoomey/vim-tmux-navigator")
 	use("nvim-tree/nvim-web-devicons")

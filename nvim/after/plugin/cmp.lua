@@ -1,27 +1,52 @@
 local cmp = require("cmp")
-local luasnip = require("luasnip")
-
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local icons = {
-	nvim_lsp = "󰞵 ",
+	lsp = "󰞵 ",
 	nvim_lua = " ",
-	buffer = " ",
 	path = "󰝰 ",
+	Text = "󰞵 ",
+	Method = "󰆧 ",
+	Function = "󰊕 ",
+	Constructor = " ",
+	Field = " ",
+	Variable = "󰀫 ",
+	Class = " ",
+	Interface = " ",
+	Module = " ",
+	Property = " ",
+	Unit = " ",
+	Value = "󰎠 ",
+	Enum = " ",
+	Keyword = "󰌋 ",
+	Snippet = " ",
+	Color = "󰏘 ",
+	File = "󰈙 ",
+	Reference = " ",
+	Folder = "󰉋 ",
+	EnumMember = " ",
+	Constant = "󰏿 ",
+	Struct = " ",
+	Event = " ",
+	Operator = "󰆕 ",
+	TypeParameter = "󰊄 ",
 }
+
+require("luasnip.loaders.from_vscode").lazy_load()
 cmp.setup({
 	completion = {
 		completeopt = "menu,menuone,preview,noselect",
 	},
-	snippet = {
-		expand = function(args)
-			luasnip.lsp_expand(args.body)
-		end,
-	},
-
 	window = {
 		completion = cmp.config.window.bordered(),
 		documentation = cmp.config.window.bordered(),
 	},
-
+	sources = {
+		{ name = "path" },
+		{ name = "nvim_lsp" },
+		{ name = "nvim_lua" },
+		{ name = "luasnip", keyword_length = 2 },
+		{ name = "buffer", keyword_length = 3 },
+	},
 	mapping = cmp.mapping.preset.insert({
 		["<Tab>"] = function(fallback)
 			if cmp.visible() then
@@ -39,18 +64,15 @@ cmp.setup({
 		["<C-e>"] = cmp.mapping.abort(),
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
 	}),
-
-	source = cmp.config.sources({
-		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
-		{ name = "buffer" },
-		{ name = "path" },
-	}, {
-		{ name = "buffer" },
-	}),
-
-	format = function(_, vim_item)
-		vim_item.kind = icons[vim_item.kind]
-		return vim_item
-	end,
+	snippet = {
+		expand = function(args)
+			require("luasnip").lsp_expand(args.body)
+		end,
+	},
+	formatting = {
+		format = function(_, vim_item)
+			vim_item.kind = string.format("%s %s", icons[vim_item.kind], vim_item.kind)
+			return vim_item
+		end,
+	},
 })
