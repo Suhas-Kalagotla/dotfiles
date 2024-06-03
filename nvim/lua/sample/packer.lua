@@ -1,8 +1,6 @@
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
-
 -- Only required if you have packer configured as `opt`
-vim.cmd([[packadd packer.nvim]])
 
+vim.cmd([[packadd packer.nvim]])
 return require("packer").startup(function(use)
 	-- Packer can manage itself
 	use("wbthomason/packer.nvim")
@@ -36,31 +34,24 @@ return require("packer").startup(function(use)
 	use("nvim-treesitter/playground")
 	use("mbbill/undotree")
 	use("tpope/vim-fugitive")
-		use({
-			"VonHeikemen/lsp-zero.nvim",
-			branch = "v3.x",
-			requires = {
-				{ "williamboman/mason.nvim" },
-				{ "williamboman/mason-lspconfig.nvim" },
-	
-				{ "neovim/nvim-lspconfig" },
-				{ "hrsh7th/nvim-cmp" },
-				{ "hrsh7th/cmp-nvim-lsp" },
-				{ "L3MON4D3/LuaSnip" },
-			},
-			config = function()
-				require("lsp-zero").extend_lspconfig()
-			end,
-		})
 	use({
-		"L3MON4D3/LuaSnip",
-		-- follow latest release.
-		tag = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-		-- install jsregexp (optional!:).
-		run = "make install_jsregexp",
+		"VonHeikemen/lsp-zero.nvim",
+		branch = "v3.x",
+		requires = {
+			{ "williamboman/mason.nvim" },
+			{ "williamboman/mason-lspconfig.nvim" },
+
+			{ "neovim/nvim-lspconfig" },
+			{ "hrsh7th/nvim-cmp" },
+			{ "hrsh7th/cmp-nvim-lsp" },
+		},
+		config = function()
+			require("lsp-zero").extend_lspconfig()
+		end,
 	})
-	use("vim-airline/vim-airline", { run = ":TSUpdate" })
-	use("vim-airline/vim-airline-themes", { run = ":TSUpdate" })
+	use("bling/vim-bufferline")
+	use("vim-airline/vim-airline")
+	use("vim-airline/vim-airline-themes")
 	use({
 		"akinsho/toggleterm.nvim",
 		tag = "*",
@@ -77,13 +68,13 @@ return require("packer").startup(function(use)
 	use("mhartington/formatter.nvim")
 	use("stevearc/conform.nvim")
 
-	use("bling/vim-bufferline", { run = ":TSUpdate" })
 	use("christoomey/vim-tmux-navigator")
 	use("nvim-tree/nvim-web-devicons")
 	use({ "saadparwaiz1/cmp_luasnip" })
 	use({
 		"L3MON4D3/LuaSnip",
 		after = "nvim-cmp",
+		run = "make install_jsregexp",
 		config = function()
 			require("config.snippets")
 		end,

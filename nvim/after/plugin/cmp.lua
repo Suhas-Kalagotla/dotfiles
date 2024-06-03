@@ -1,9 +1,8 @@
 local cmp = require("cmp")
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
+local luasnip = require("luasnip")
+
 local icons = {
-	lsp = "󰞵 ",
-	nvim_lua = " ",
-	path = "󰝰 ",
 	Text = "󰞵 ",
 	Method = "󰆧 ",
 	Function = "󰊕 ",
@@ -30,8 +29,8 @@ local icons = {
 	Operator = "󰆕 ",
 	TypeParameter = "󰊄 ",
 }
-
 require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_vscode").lazy_load({ paths = "../../snippets" })
 cmp.setup({
 	completion = {
 		completeopt = "menu,menuone,preview,noselect",
@@ -52,6 +51,8 @@ cmp.setup({
 			if cmp.visible() then
 				cmp.select_next_item()
 				cmp.confirm({ select = false })
+			elseif luasnip.expand_or_jumpable() then
+				luasnip.expand_or_jump()
 			else
 				fallback()
 			end
