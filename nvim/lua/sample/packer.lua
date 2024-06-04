@@ -1,5 +1,4 @@
 -- Only required if you have packer configured as `opt`
-
 vim.cmd([[packadd packer.nvim]])
 return require("packer").startup(function(use)
 	-- Packer can manage itself
@@ -75,8 +74,5 @@ return require("packer").startup(function(use)
 		"L3MON4D3/LuaSnip",
 		after = "nvim-cmp",
 		run = "make install_jsregexp",
-		config = function()
-			require("config.snippets")
-		end,
 	})
 end)

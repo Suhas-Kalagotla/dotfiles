@@ -1,32 +1,12 @@
 local ls = require("luasnip")
-local snip = ls.snippet
-local node = ls.snippet_node
-local text = ls.text_node
-local insert = ls.insert_node
-local func = ls.function_node
-local choice = ls.choice_node
-local dynamicn = ls.dynamic_node
+
+require("luasnip.loaders.from_vscode").lazy_load({ paths = "~/dotfiles/nvim/after/snippets" })
+require("luasnip.loaders.from_lua").lazy_load({ paths = "~/dotfiles/nvim/after/snippets/snips" })
 
 ls.config.set_config({
 	history = true,
 	updateevents = "TextChanged,TextChangedI",
 	enable_autosnippets = true,
-})
-
-local date = function()
-	return { "--this is sample" }
-end
-
-ls.add_snippets(nil, {
-	all = {
-		snip({
-			trig = "date",
-			namr = "Date",
-			dscr = "Date in the form of YYYY-MM-DD",
-		}, {
-			func(date, {}),
-		}),
-	},
 })
 
 vim.keymap.set({ "i" }, "<C-k>", function()
@@ -47,4 +27,10 @@ vim.keymap.set({ "i", "s" }, "<C-h>", function()
 	end
 end, { silent = true })
 
-vim.keymap.set("n", "<leader><leader>s", "<cmd>source ~/dotfiles/nvim/after/plugin/luasnip.lua<CR>")
+local M = {}
+function M.refresh_snippets()
+	ls.cleanup()
+	M.reload_package("after.snippets.snips")
+end
+
+vim.keymap.set("n", ",r", M.refresh_snippets)

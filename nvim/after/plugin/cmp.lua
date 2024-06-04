@@ -29,8 +29,7 @@ local icons = {
 	Operator = "󰆕 ",
 	TypeParameter = "󰊄 ",
 }
-require("luasnip.loaders.from_vscode").lazy_load()
-require("luasnip.loaders.from_vscode").lazy_load({ paths = "../../snippets" })
+
 cmp.setup({
 	completion = {
 		completeopt = "menu,menuone,preview,noselect",
@@ -68,6 +67,7 @@ cmp.setup({
 	snippet = {
 		expand = function(args)
 			require("luasnip").lsp_expand(args.body)
+			--			require("after.snippets.snips").lsp_expand(args.body)
 		end,
 	},
 	formatting = {

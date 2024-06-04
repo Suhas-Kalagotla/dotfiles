@@ -1,0 +1,55 @@
+{
+    "snip1": {
+        "prefix": "all1",
+        "body": [
+            "expands? jumps? $1 $2 !"
+        ]
+    },
+    "class": {
+        "prefix": "class",
+        "body": [
+            "import java.io.*;",
+            "import java.util.*;",
+            "",
+            "class $1$TM_FILENAME_BASE{",
+            "  static class Read {",
+            "    BufferedReader br;",
+            "    PrintWriter pr;",
+            "    StringTokenizer st;",
+            "    Read() throws IOException {",
+            "      br = new BufferedReader(new InputStreamReader(System.in));",
+            "      pr = new PrintWriter(System.out);",
+            "      st = new StringTokenizer(br.readLine());",
+            "  }",
+            "",
+            "    String next() throws IOException {",
+            "      if (st.hasMoreTokens()) {",
+            "        return st.nextToken();",
+            "      } else {",
+            "        st = new StringTokenizer(br.readLine());",
+            "        return st.nextToken();",
+            "      }",
+            "    }",
+            "",
+            "    int nextInt() throws IOException {",
+            "      return Integer.parseInt(next());",
+            "    }",
+            "    void print(Object o) throws IOException {",
+            "      String s = String.valueOf(o);",
+            "      pr.print(s);",
+            "      pr.flush();",
+            "    }",
+            "  }",
+            "",
+            "  public static void main(String[] args) throws IOException {",
+            "    Read r = new Read();",
+            "    int tc = r.nextInt();",
+            "    r.print(tc);",
+            "    while(t-- > 0) {",
+            "      $2",
+            "    }",
+            "  }",
+            "}"
+        ]
+    }
+}
