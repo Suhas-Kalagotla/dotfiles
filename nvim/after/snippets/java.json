@@ -1,4 +1,21 @@
 {
+    "normal": {
+        "prefix": "norclass",
+        "body": [
+            "import java.util.*;",
+            "",
+            "class $1$TM_FILENAME_BASE{",
+            "  public static void main(String[] args) {",
+            "    Scanner sc = new Scanner(System.in);",
+            "    int tc = sc.nextInt();",
+            "    while(tc-- > 0) {",
+            "      int n = sc.nextInt();",
+            "      $2",
+            "    }",
+            "  }",
+            "}"
+        ]
+    },
     "class": {
         "prefix": "class",
         "body": [
