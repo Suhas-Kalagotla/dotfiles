@@ -1,10 +1,4 @@
 {
-    "snip1": {
-        "prefix": "all1",
-        "body": [
-            "expands? jumps? $1 $2 !"
-        ]
-    },
     "class": {
         "prefix": "class",
         "body": [
@@ -34,6 +28,15 @@
             "    int nextInt() throws IOException {",
             "      return Integer.parseInt(next());",
             "    }",
+            "",
+            "    List<Integer> readList(int n) throws IOException {",
+            "      List<Integer> l = new ArrayList<>();",
+            "      for (int i = 0; i < n; i++) {",
+            "        l.add(nextInt());",
+            "      }",
+            "      return l;",
+            "    }",
+            "",
             "    void print(Object o) throws IOException {",
             "      String s = String.valueOf(o);",
             "      pr.print(s);",
@@ -44,8 +47,8 @@
             "  public static void main(String[] args) throws IOException {",
             "    Read r = new Read();",
             "    int tc = r.nextInt();",
-            "    r.print(tc);",
             "    while(t-- > 0) {",
+            "      int n = r.nextInt()",
             "      $2",
             "    }",
             "  }",
