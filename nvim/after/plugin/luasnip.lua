@@ -58,6 +58,14 @@ ls.add_snippets("lua", {
 })
 
 ls.add_snippets("java", {
+	snip("sys", {
+		text("System.out.println("),
+		insert(1),
+		text(");"),
+	}),
+})
+
+ls.add_snippets("java", {
 	snip("pairc", {
 		text({
 			"static class Pair implements Comparable<Pair> {",
