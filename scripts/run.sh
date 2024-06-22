@@ -20,7 +20,7 @@ function delete(){
             rm -f *.class
             ;;
         2)
-            rm -f ./a.out
+            rm -f *.out
             ;;
     esac
 }
@@ -38,11 +38,20 @@ if [ "$type" = "java" ]; then   # java
     if [ "$2" != "-d" ]; then 
         delete 1
     fi
+
 elif [ "$type" = "cpp" ]; then # c++
     g++ $1 -o "$fileName.out" && 
-    input 1 &&
-    ./fileName.out && 
-    rm ./fileName.out
+    if [ "$2" = "-f" ]; then 
+        input 2
+        "./$fileName.out" < input.txt > out.txt 
+    else 
+        input 1 
+        "./$fileName.out"  
+    fi
+    if [ "$2" != "-d" ]; then 
+        delete 2
+    fi
+
 elif [ "$type" = "py" ]; then  # python 
     chmod +x $1 && 
     if [ "$2" = "-f" ]; then 
