@@ -2,71 +2,76 @@
 
 IFS='.' read -r fileName type <<< $1
 
-function input {
-    case $1 in 
-        1) 
-            echo -e  "\e[32mEnter Input\e[0m"
-            ;;
-        2) 
-            echo -e "\e[32mInput read from file\e[0m"
-            ;;
-    esac 
+function inputFromFile() {
+    if [ $1 = true ]; then
+        echo -e "\e[32mInput read from file\e[0m"
+    else 
+        echo -e  "\e[32mEnter Input\e[0m"
+    fi
 }
 
 
-function delete(){
-    case $1 in 
-        1)
-            rm -f *.class
-            ;;
-        2)
-            rm -f *.out
-            ;;
+function deleteFiles {
+    if [ $1 = true ] ; then 
+        case $type in 
+            "java")
+                rm -f *.class
+                ;;
+            "cpp")
+                rm -f *.out
+                ;;
+        esac
+    fi
+}
+
+function compile {
+    case $type in 
+        "java") javac $1 ;;
+        #"js") node $1 ;;
+        "cpp") g++ $1 ;;
+        "py") chmod +x $1 ;;  
     esac
 }
 
-
-if [ "$type" = "java" ]; then   # java 
-    javac $1 && 
-    if [ "$2" = "-f" ]; then 
-        input 2
-        java $fileName < input.txt > out.txt
+function execute {
+    case $type in 
+        "java") command="java $fileName" ;;
+        "js") command="node $fileName" ;; 
+        "cpp") command=./a.out ;;
+        "py") command="./$fileName.$type" ;;  
+    esac
+    if [ $1 = true ]; then  
+        inputFromFile $1 
+        $command < input.txt > out.txt
     else 
-        input 1
-        java $fileName
+        inputFromFile $1 
+        $command
     fi
-    if [ "$2" != "-d" ]; then 
-        delete 1
-    fi
+}
 
-elif [ "$type" = "cpp" ]; then # c++
-    g++ $1 -o "$fileName.out" && 
-    if [ "$2" = "-f" ]; then 
-        input 2
-        "./$fileName.out" < input.txt > out.txt 
+flags=$2
+compile $1 # compile files  
+
+if [ -z "$flags" ]; then 
+    execute false  # if execute function is called file will be executed true or false is for reading input from file or not
+    deleteFiles true
+elif [[ ${flags:0:1} == "-" ]]; then
+    delete=true
+    for (( i=1; i<${#flags}; i++ )); do
+        flag=${flags:$i:1}
+        case $flag in 
+            "f") execute true ;; 
+            "d") delete=false ;;
+        esac 
+    done 
+    if [ $delete = true ]; then  
+        deleteFiles true
     else 
-        input 1 
-        "./$fileName.out"  
+        deleteFiles false
     fi
-    if [ "$2" != "-d" ]; then 
-        delete 2
-    fi
-
-elif [ "$type" = "py" ]; then  # python 
-    chmod +x $1 && 
-    if [ "$2" = "-f" ]; then 
-        input 2 
-        ./$1 < input.txt > out.txt
-    else
-        input 1
-        ./$1
-    fi
-elif [ "$type" = "js" ]; then  # javascript
-    if [ "$2" = "-f" ]; then 
-        input 2 
-        node $1 < input.txt > out.txt
-    fi
-else 
-    echo "File Type not known"
+else
+    echo -e  "\e[32mInvalid arguments\e[0m"
 fi
+
+
 
