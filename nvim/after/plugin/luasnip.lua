@@ -57,6 +57,28 @@ ls.add_snippets("lua", {
 	),
 })
 
+local function codeblock(trigger, lang)
+	return snip(trigger, {
+		text({
+			"```" .. lang,
+			"",
+		}),
+		text("    "),
+		insert(1),
+		text({
+			"",
+			"```",
+		}),
+	})
+end
+
+ls.add_snippets("markdown", {
+	codeblock("javacode", "java"),
+	codeblock("jscode", "javascript"),
+	codeblock("cppcode", "cpp"),
+	codeblock("tscode", "typescript"),
+})
+
 ls.add_snippets("java", {
 	snip("sys", {
 		text("System.out.println("),
