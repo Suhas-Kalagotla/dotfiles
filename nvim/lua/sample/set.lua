@@ -25,3 +25,16 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 vim.g.mapleader = " "
+
+---- Enable automatic reloading
+vim.opt.autoread = true
+--
+---- Notify the user when a file is reloaded
+vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "CursorHold" }, {
+	command = "checktime",
+})
+--
+---- Inform the user when the file is reloaded
+vim.api.nvim_create_autocmd("FileChangedShellPost", {
+	command = 'echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None',
+})
