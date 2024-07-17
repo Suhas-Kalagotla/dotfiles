@@ -1,6 +1,7 @@
 #!/bin/bash 
 
-IFS='.' read -r fileName type <<< $1
+fileName="${1%.*}"
+type="${1##*.}"
 
 function inputFromFile() {
     if [ $1 = true ]; then
@@ -30,21 +31,25 @@ function compile {
         #"js") node $1 ;;
         "cpp") g++ $1 ;;
         "py") chmod +x $1 ;;  
+        *) echo -e  "\e[32m $type Invalid file type\e[0m" ;; 
     esac
 }
 
 function execute {
+    command=""
+    if [ $2 = true ]; then 
+        command+="time -p "
+    fi
+    inputFromFile $1 
     case $type in 
-        "java") command="java $fileName" ;;
-        "js") command="node $fileName" ;; 
-        "cpp") command=./a.out ;;
-        "py") command="./$fileName.$type" ;;  
+        "java") command+="java $fileName" ;;
+        "js") command+="node $fileName" ;; 
+        "cpp") command+=./a.out ;;
+        "py") command+="./$fileName.$type" ;;  
     esac
     if [ $1 = true ]; then  
-        inputFromFile $1 
-        $command < input.txt > out.txt
+       $command < input.txt > out.txt
     else 
-        inputFromFile $1 
         $command
     fi
 }
@@ -53,22 +58,24 @@ flags=$2
 compile $1 # compile files  
 
 if [ -z "$flags" ]; then 
-    execute false  # if execute function is called file will be executed true or false is for reading input from file or not
+    execute false false  # it expects two parameters "reading from file" and "to use time command or not"
     deleteFiles true
 elif [[ ${flags:0:1} == "-" ]]; then
     delete=true
+    fileRead=false
+    timeprint=false
+
     for (( i=1; i<${#flags}; i++ )); do
         flag=${flags:$i:1}
         case $flag in 
-            "f") execute true ;; 
+            "t") timeprint=true ;;
+            "f") fileRead=true ;; 
             "d") delete=false ;;
+            *) echo -e  "\e[32mInvalid flag: $flag\e[0m" ;;
         esac 
     done 
-    if [ $delete = true ]; then  
-        deleteFiles true
-    else 
-        deleteFiles false
-    fi
+    execute $fileRead $timeprint
+    deleteFiles $delete
 else
     echo -e  "\e[32mInvalid arguments\e[0m"
 fi
