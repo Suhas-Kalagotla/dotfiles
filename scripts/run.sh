@@ -31,7 +31,7 @@ function compile {
         #"js") node $1 ;;
         "cpp") g++ $1 ;;
         "py") chmod +x $1 ;;  
-        *) echo -e  "\e[32m $type Invalid file type\e[0m" ;; 
+        *) echo -e  "\e[32m .$type Invalid file type\e[0m" ;exit 1 ;; 
     esac
 }
 
@@ -71,7 +71,7 @@ elif [[ ${flags:0:1} == "-" ]]; then
             "t") timeprint=true ;;
             "f") fileRead=true ;; 
             "d") delete=false ;;
-            *) echo -e  "\e[32mInvalid flag: $flag\e[0m" ;;
+            *) echo -e  "\e[32mInvalid flag: $flag\e[0m" ; exit 1;;
         esac 
     done 
     execute $fileRead $timeprint
