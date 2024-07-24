@@ -37,9 +37,6 @@ return require("packer").startup(function(use)
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v3.x",
 		requires = {
-			{ "williamboman/mason.nvim" },
-			{ "williamboman/mason-lspconfig.nvim" },
-
 			{ "neovim/nvim-lspconfig" },
 			{ "hrsh7th/nvim-cmp" },
 			{ "hrsh7th/cmp-nvim-lsp" },
@@ -59,9 +56,7 @@ return require("packer").startup(function(use)
 		end,
 	})
 	use({
-		"williamboman/mason.nvim",
 		"mfussenegger/nvim-lint",
-		"rshkarin/mason-nvim-lint",
 	})
 	use("stevearc/dressing.nvim")
 	use("mhartington/formatter.nvim")
