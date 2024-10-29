@@ -63,6 +63,7 @@ require("conform").setup({
 		css = { "prettier" },
 		markdown = { "cbfmt" },
 		json = { "fixjson" },
+		cpp = { "cpplint" },
 	},
 })
 

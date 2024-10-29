@@ -28,7 +28,7 @@ function deleteFiles {
 function compile {
     case $type in 
         "java") javac $1 ;;
-        #"js") node $1 ;;
+        "js") node $1 ;;
         "cpp") g++ $1 ;;
         "py") chmod +x $1 ;;  
         *) echo -e  "\e[32m .$type Invalid file type\e[0m" ;exit 1 ;; 

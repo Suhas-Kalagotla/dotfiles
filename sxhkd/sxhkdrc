@@ -23,7 +23,7 @@ super + alt + {q,r}
 	bspc {quit,wm -r}
 
 # close and kill
-super + {_,shift + }q
+super + shift + {q,_}
 	bspc node -{c,k}
 
 # alternate between the tiled and monocle layout
@@ -122,3 +122,30 @@ super + {Left,Down,Up,Right}
 
 super + f 
     thunar
+
+#Volume Control
+XF86AudioLowerVolume
+	amixer set Master 5%-
+XF86AudioRaiseVolume
+	amixer set Master 5%+
+XF86AudioMute
+        amixer set Master toggle
+
+XF86MonBrightness{Up,Down}  
+  brightnessctl s 10{+,-}  
+
+# Fullscreen screenshot
+super + shift + s
+    scrot ~/Pictures/screenshot_%Y-%m-%d_%H-%M-%S.png
+
+# Selective screenshot
+super + Print 
+    scrot -s ~/Pictures/screenshot_%Y-%m-%d_%H-%M-%S.png
+
+# move firefox tab to the left 
+super + alt + j 
+    xdotool key "ctrl+shift+Page_Up"
+
+# move firefox tab to the right 
+super + alt + ; 
+    xdotool key "ctrl+shift+Page_Down"
